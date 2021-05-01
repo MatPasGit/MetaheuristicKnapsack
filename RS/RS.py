@@ -12,7 +12,14 @@ class RS:
 
     def init_itemlist(self):
         for x in range(0, self._itemlist_size ):
-            self._itemlist.append(Item(10,20))   #tu jakis rand cziba chyba
+            self._itemlist.append( Item(10,20) )   #tu jakis rand cziba chyba
+
 
     def solve(self):
+        self.init_itemlist()
+
+        while self._iterations > 0 :
+            self._iterations -= 1
+
+
         return ("NO SIEMA XD")
