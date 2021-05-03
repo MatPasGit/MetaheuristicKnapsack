@@ -1,5 +1,6 @@
 from Knapsack import *
 from Item import *
+from random import *
 
 class RS:
 
@@ -11,9 +12,7 @@ class RS:
         self._iterations = iterations
 
     def init_itemlist(self):
-        for x in range(0, self._itemlist_size ):
-            self._itemlist.append( Item(10,20) )   #tu jakis rand cziba chyba
-
+        self._itemlist = random_instance(20,self._itemlist_size)
 
     def find_best_neighbour(self, solution):
         return 0
