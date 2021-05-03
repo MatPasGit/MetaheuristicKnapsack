@@ -15,6 +15,10 @@ class RS:
             self._itemlist.append( Item(10,20) )   #tu jakis rand cziba chyba
 
 
+    def find_best_neighbour(self, solution):
+        return 0
+
+
     def solve(self):
         self.init_itemlist()
 
