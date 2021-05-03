@@ -15,8 +15,8 @@ class Knapsack:
 
     def add_to_itemlist(self, item):
         if isinstance(item, Item):
-
             self._itemlist.append(item)
+            self.knapsackValue()
 
     def del_from_itemlist(self, item):
         if isinstance(item, Item):
@@ -25,6 +25,7 @@ class Knapsack:
                 index+=1
                 if x.getId() == item.getId():
                     self._itemlist.pop(index)
+                    self.knapsackValue()
                     return
 
 
