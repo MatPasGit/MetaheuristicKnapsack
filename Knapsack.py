@@ -32,6 +32,9 @@ class Knapsack:
     def get_itemlist(self):
         return self._itemlist
 
+    def get_value(self):
+        return self._value
+
     def knapsackValue(self):
         value = 0
         for x in self._itemlist:
