@@ -14,7 +14,7 @@ class RS:
         self._iterations = iterations
 
     def init_itemlist(self):
-        self._itemlist = [random_instance(20,self._itemlist_size), False ]
+        self._itemlist.append([random_instance(20,self._itemlist_size), False ])
         ## [Item, Boolean] bolean value determines whether item is in knapsack or no
 
 
@@ -57,7 +57,7 @@ class RS:
         for x in self._itemlist:            ##INIT PROBLEM
             if knapsack.get_value() > knapsack.get_capacity() :
                 break
-            knapsack.add_to_itemlist( x[0] )
+            knapsack.add_to_itemlist( x[0][0] )
             x[1] = True
 
         bestKnapsack = copy.deepcopy(knapsack)

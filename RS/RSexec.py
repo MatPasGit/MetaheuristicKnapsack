@@ -1,7 +1,7 @@
-import RS
-import Knapsack
+from  RS import *
+from Knapsack import *
 def main():
-    x = RS()
+    x = RS(100)
     knapsack = x.solve()
     print("KNAPSACK VALUE")
     print(knapsack. get_value())
