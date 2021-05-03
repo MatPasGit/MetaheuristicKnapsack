@@ -1,8 +1,8 @@
 from Knapsack import *
 from Item import *
-from random import *
+import random
 import copy
-
+from RandomNumberGenerator import *
 class RS:
 
     _capacity = 100
@@ -14,7 +14,10 @@ class RS:
         self._iterations = iterations
 
     def init_itemlist(self):
-        self._itemlist.append([random_instance(20,self._itemlist_size), False ])
+        x = RandomNumberGenerator(20)
+        for i in range(0, self._itemlist_size):
+            self._itemlist.append([Item(i, x.nextInt(0,20), x.nextInt(0,20)) , False ])
+            print(self._itemlist)
         ## [Item, Boolean] bolean value determines whether item is in knapsack or no
 
 
@@ -34,7 +37,7 @@ class RS:
                 if i == x:
                     continue
                 if i[1] == False:       #JESLI POZA PLECAKIEM TO PODMIEN
-                    if sack.get_value() + i[1].get_price() > self._capacity:
+                    if sack.get_value() + i[0].get_price() > self._capacity:
                         continue
                     else:
                         sack.add_to_itemlist
@@ -55,9 +58,9 @@ class RS:
         knapsack = Knapsack(100, [])
 
         for x in self._itemlist:            ##INIT PROBLEM
-            if knapsack.get_value() > knapsack.get_capacity() :
+            if knapsack.get_value() +  x[0].get_price() > knapsack.get_capacity() :
                 break
-            knapsack.add_to_itemlist( x[0][0] )
+            knapsack.add_to_itemlist( x[0] )
             x[1] = True
 
         bestKnapsack = copy.deepcopy(knapsack)
@@ -66,9 +69,20 @@ class RS:
         while self._iterations > 0 :
             self._iterations -= 1
 
-            knapsack = self.find_best_neighbour(knapsack)
+            knapsack = self.find_best_neighbour(knapsack) # it makes the list clean for some reason
             if knapsack.get_value() > bestKnapsack.get_value():
                 bestKnapsack = copy.deepcopy(knapsack)
 
+            if self._iterations % 30 == 0: #co iles zacznij od nowa
+                for x in range(0, self._itemlist_size -1 ):
+                    self._itemlist[x][1] = False
+                random.shuffle(self._itemlist)
+                knapsack = Knapsack(100, [])
+
+                for x in self._itemlist:  ##INIT PROBLEM
+                    if knapsack.get_value() > knapsack.get_capacity():
+                        break
+                    knapsack.add_to_itemlist(x[0])
+                    x[1] = True
 
         return bestKnapsack
