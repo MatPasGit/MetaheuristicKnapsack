@@ -5,6 +5,7 @@ class Knapsack:
     _value = 0
     _capacity= 100
     _itemlist = [] #INSERT ITEMS CLASS OBJECTS  HERE
+    
     def __init__(self, capacity, itemlist):
         self._capacity = capacity
         self._itemlist = itemlist
