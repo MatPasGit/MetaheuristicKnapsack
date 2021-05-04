@@ -4,7 +4,7 @@ from numpy.random import choice
 class SA(RS):
 
     _temperature = 50
-
+    _iterations = 1000
     _chill_period = 0
 
     def __init__(self, iterations, size, seed, init_method, iterationlimit, neighbourmethod, temperature):
@@ -64,20 +64,20 @@ class SA(RS):
         while self._iterations > 0:
             self._iterations -= 1
 
-        chance = self._temperature / 100
-        better_worst = choice([True, False], 1, [1-chance, chance])
-        print(better_worst)
-        if better_worst == True:
-            knapsack = self.find_best_neighbour(knapsack)
-        else:
-            knapsack = self.find_worst_neighbour(knapsack)
+            chance = self._temperature / 100
+            better_worst = choice([True, False], 1, [1-chance, chance])
+            print(better_worst)
+            if better_worst == True:
+                knapsack = self.find_best_neighbour(knapsack)
+            else:
+                knapsack = self.find_worst_neighbour(knapsack)
 
-        if bestknapsack.get_value() < knapsack.get_value():
-            bestknapsack = copy.deepcopy(knapsack)
+            if bestknapsack.get_value() < knapsack.get_value():
+                bestknapsack = copy.deepcopy(knapsack)
 
-        if self._iterations % self._chill_period == 0:
-            self._temperature -= 1
-            if self._temperature < 0: ##for safety
-                self._temperature = 0
+            if self._iterations % self._chill_period == 0:
+                self._temperature -= 1
+                if self._temperature < 0: ##for safety
+                    self._temperature = 0
 
         return bestknapsack
