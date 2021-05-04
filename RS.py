@@ -30,16 +30,16 @@ class RS:
 
         for i in range(0, self._itemlist_size):
             self._itemlist.append([Item(i, x.nextInt(1,30), x.nextInt(1,30)) , False ])
-            print(str(self._itemlist[i][0].getId())+" " +
-                  str(self._itemlist[i][0].get_price())+" "+
-                  str(self._itemlist[i][0].get_weight()))
+            #print(str(self._itemlist[i][0].getId())+" " +
+            #      str(self._itemlist[i][0].get_price())+" "+
+            #      str(self._itemlist[i][0].get_weight()))
         ## [Item, Boolean] bolean value determines whether item is in knapsack or no
 
         self._capacity = x.nextInt(5*self._itemlist_size,10*self._itemlist_size)
-        print(self._capacity)
+        #print(self._capacity)
 
     def init_solution(self):
-        print("Wybrano metode początkową: "+str(self.__init_method))
+        #print("Wybrano metode początkową: "+str(self.__init_method))
 
         knapsack = Knapsack(self._capacity, [])
 
@@ -61,18 +61,18 @@ class RS:
                     x[1] = True
                 if i==0:
                     bestKnapsack = copy.deepcopy(knapsack)
-                    print("Znaleziono lepszy początek"+str(bestKnapsack.get_value()))
+                    #print("Znaleziono lepszy początek"+str(bestKnapsack.get_value()))
                 else:
                     if bestKnapsack.get_value() < knapsack.get_value() :
                         bestKnapsack = copy.deepcopy(knapsack)
-                        print("Znaleziono lepszy początek"+str(bestKnapsack.get_value()))
+                        #print("Znaleziono lepszy początek"+str(bestKnapsack.get_value()))
                 knapsack = Knapsack(self._capacity, [])
                 random.shuffle(self._itemlist)
             return bestKnapsack
 
         if self.__init_method == 3:
             bestKnapsack = 0
-            for i in range(100):
+            for i in range(20):
                 for x in self._itemlist:
                     if knapsack.get_weight() + x[0].get_weight() >= knapsack.get_capacity():
                         break
@@ -80,12 +80,12 @@ class RS:
                     x[1] = True
                 if i == 0:
                     bestKnapsack = copy.deepcopy(knapsack)
-                    print("Znaleziono lepszy początek"+str(bestKnapsack.get_value()))
+                    #print("Znaleziono lepszy początek"+str(bestKnapsack.get_value()))
                 else:
                     if bestKnapsack.get_value() < knapsack.get_value():
                         bestKnapsack = copy.deepcopy(knapsack)
-                        print("Znaleziono lepszy początek" +
-                              str(bestKnapsack.get_value()))
+                        #print("Znaleziono lepszy początek" +
+                        #      str(bestKnapsack.get_value()))
                 knapsack = Knapsack(self._capacity, [])
                 random.shuffle(self._itemlist)
             return bestKnapsack
@@ -162,7 +162,7 @@ class RS:
             knapsack = self.find_best_neighbour(knapsack) # it makes the list clean for some reason
 
             if knapsack.get_value() > bestKnapsack.get_value():
-                print("Znaleziono lepszą kombinację przedmiotów. Wartość plecaka wynosi: "+str(knapsack.get_value()))
+                #print("Znaleziono lepszą kombinację przedmiotów. Wartość plecaka wynosi: "+str(knapsack.get_value()))
                 bestKnapsack = copy.deepcopy(knapsack)
 
             if self._iterations % self._iterationlimit == 0:                  #co iles zacznij od nowa
