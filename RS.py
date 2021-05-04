@@ -34,7 +34,9 @@ class RS:
         self._capacity = x.nextInt(5*self._itemlist_size,10*self._itemlist_size)
         print(self._capacity)
 
-    def init_solution(self, knapsack):
+    def init_solution(self):
+        knapsack = Knapsack(self._capacity, [])
+
         if self.__init_method==1:
             for x in self._itemlist:
                 if knapsack.get_weight() + x[0].get_weight() >= knapsack.get_capacity():
@@ -58,6 +60,7 @@ class RS:
                     if bestKnapsack.get_value() < knapsack.get_value() :
                         bestKnapsack = copy.deepcopy(knapsack)
                         print("Znaleziono lepszy początek"+str(bestKnapsack.get_value()))
+                knapsack = Knapsack(self._capacity, [])
                 random.shuffle(self._itemlist)
             return bestKnapsack
 
@@ -77,6 +80,7 @@ class RS:
                         bestKnapsack = copy.deepcopy(knapsack)
                         print("Znaleziono lepszy początek" +
                               str(bestKnapsack.get_value()))
+                knapsack = Knapsack(self._capacity, [])
                 random.shuffle(self._itemlist)
             return bestKnapsack
 
@@ -116,10 +120,9 @@ class RS:
     def solve(self):
         self.init_itemlist()
 
+        bestKnapsack = copy.deepcopy(self.init_solution())
         knapsack = Knapsack(self._capacity, [])
-
-        bestKnapsack = copy.deepcopy(self.init_solution(knapsack))
-
+        
         while self._iterations > 0 :
             self._iterations -= 1
 
