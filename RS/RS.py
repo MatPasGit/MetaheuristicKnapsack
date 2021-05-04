@@ -9,21 +9,27 @@ from RandomNumberGenerator import *
 
 class RS:
 
-    _capacity = 100
-    _iterations= 100
+    _capacity = 0
+    _iterations= 0
     _itemlist = []
     _solution = []
-    _itemlist_size = 20
+    _itemlist_size = 0
+    _seed = 20
     
-    def __init__(self, iterations):
+    def __init__(self, iterations, size, seed):
         self._iterations = iterations
+        self._itemlist_size = size
+        self._seed = seed
 
     def init_itemlist(self):
-        x = RandomNumberGenerator(20)
+        x = RandomNumberGenerator(self._seed)
+
         for i in range(0, self._itemlist_size):
-            self._itemlist.append([Item(i, x.nextInt(0,20), x.nextInt(0,20)) , False ])
+            self._itemlist.append([Item(i, x.nextInt(1,30), x.nextInt(1,30)) , False ])
             print(self._itemlist)
         ## [Item, Boolean] bolean value determines whether item is in knapsack or no
+
+        _capacity = x.nextInt(5*self._itemlist_size,10*self._itemlist_size)
 
 
     def find_best_neighbour(self, knapsack):
@@ -61,7 +67,7 @@ class RS:
     def solve(self):
         self.init_itemlist()
 
-        knapsack = Knapsack(100, [])
+        knapsack = Knapsack(self._capacity, [])
 
         for x in self._itemlist:            ##INIT PROBLEM
             if knapsack.get_value() +  x[0].get_price() > knapsack.get_capacity() :
