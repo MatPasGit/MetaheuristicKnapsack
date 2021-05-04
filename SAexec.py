@@ -6,11 +6,14 @@ def main():
     item_list_size = 30
     seed = 20
     init_method = 3
-    iterationlimit = 30
+    iterationlimit = 100
     neighbourmethod = 1
     temperature = 50
+    alfa = 0.98
+    chill_method = 1
 
-    x = SA(iterations, item_list_size, seed, init_method, iterationlimit, neighbourmethod, temperature)
+    x = SA(iterations, item_list_size, seed, init_method, iterationlimit,
+           neighbourmethod, temperature, alfa, chill_method)
     knapsack = x.solve()
 
     print("\nOstateczna wartość: " + str(knapsack.get_value()))
