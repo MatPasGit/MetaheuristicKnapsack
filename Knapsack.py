@@ -3,6 +3,7 @@ from Item import *
 class Knapsack:
 
     _value = 0
+    _weight = 0
     _capacity= 100
     _itemlist = [] #INSERT ITEMS CLASS OBJECTS  HERE
     
@@ -10,6 +11,7 @@ class Knapsack:
         self._capacity = capacity
         self._itemlist = itemlist
         self.knapsackValue()
+        self.knapsackWeight()
 
     def get_capacity(self):
         return self._capacity
@@ -18,6 +20,7 @@ class Knapsack:
         if isinstance(item, Item):
             self._itemlist.append(item)
             self.knapsackValue()
+            self.knapsackWeight()
 
     def del_from_itemlist(self, item):
         if isinstance(item, Item):
@@ -27,6 +30,7 @@ class Knapsack:
                 if x.getId() == item.getId():
                     self._itemlist.pop(index)
                     self.knapsackValue()
+                    self.knapsackWeight()
                     return
 
 
@@ -42,3 +46,13 @@ class Knapsack:
             value += x.get_price()
         self._value = value
         return value
+
+    def get_weight(self):
+        return self._weight
+
+    def knapsackWeight(self):
+        weight = 0
+        for x in self._itemlist:
+            weight += x.get_weight()
+        self._weight = weight
+        return weight

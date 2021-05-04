@@ -2,7 +2,6 @@ import random
 
 from Knapsack import *
 from Item import *
-import randominstance
 import copy
 from RandomNumberGenerator import *
 
@@ -12,7 +11,6 @@ class RS:
     _capacity = 0
     _iterations= 0
     _itemlist = []
-    _solution = []
     _itemlist_size = 0
     _seed = 20
     
@@ -26,10 +24,13 @@ class RS:
 
         for i in range(0, self._itemlist_size):
             self._itemlist.append([Item(i, x.nextInt(1,30), x.nextInt(1,30)) , False ])
-            print(self._itemlist)
+            print(str(self._itemlist[i][0].getId())+" " +
+                  str(self._itemlist[i][0].get_price())+" "+
+                  str(self._itemlist[i][0].get_weight()))
         ## [Item, Boolean] bolean value determines whether item is in knapsack or no
 
-        _capacity = x.nextInt(5*self._itemlist_size,10*self._itemlist_size)
+        self._capacity = x.nextInt(5*self._itemlist_size,10*self._itemlist_size)
+        print(self._capacity)
 
 
     def find_best_neighbour(self, knapsack):
@@ -49,7 +50,7 @@ class RS:
                 if i == x:
                     continue
                 if i[1] == False:       #JESLI POZA PLECAKIEM TO PODMIEN
-                    if sack.get_value() + i[0].get_price() > self._capacity:
+                    if sack.get_weight() + i[0].get_weight() >= self._capacity:
                         continue
                     else:
                         sack.add_to_itemlist(i[1])
@@ -73,7 +74,7 @@ class RS:
         ##INIT PROBLEM
 
         for x in self._itemlist:            
-            if knapsack.get_value() +  x[0].get_price() > knapsack.get_capacity() :
+            if knapsack.get_weight() +  x[0].get_weight() >= knapsack.get_capacity() :
                 break
             knapsack.add_to_itemlist( x[0] )
             x[1] = True
@@ -97,7 +98,7 @@ class RS:
                 knapsack = Knapsack(self._capacity, [])
 
                 for x in self._itemlist:  ##INIT PROBLEM
-                    if knapsack.get_value() + x[0].get_price() > knapsack.get_capacity():
+                    if knapsack.get_weight() +  x[0].get_weight() >= knapsack.get_capacity() :
                         break
                     knapsack.add_to_itemlist(x[0])
                     x[1] = True
