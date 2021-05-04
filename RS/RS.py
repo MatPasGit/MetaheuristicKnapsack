@@ -37,6 +37,7 @@ class RS:
         testsack = copy.deepcopy(knapsack)
         final_list = copy.deepcopy(self._itemlist)
         test_list = copy.deepcopy(self._itemlist)
+        
         for x in test_list:
             if x[1] == False:
                 continue    ## JEŚLI POZA PLECAKIEM TO PRZEBADAJ NASTEPNY ELEMENT
@@ -69,7 +70,9 @@ class RS:
 
         knapsack = Knapsack(self._capacity, [])
 
-        for x in self._itemlist:            ##INIT PROBLEM
+        ##INIT PROBLEM
+
+        for x in self._itemlist:            
             if knapsack.get_value() +  x[0].get_price() > knapsack.get_capacity() :
                 break
             knapsack.add_to_itemlist( x[0] )
@@ -83,17 +86,18 @@ class RS:
 
             knapsack = self.find_best_neighbour(knapsack) # it makes the list clean for some reason
             if knapsack.get_value() > bestKnapsack.get_value():
-                print("lol")
+                print("Znaleziono lepszą kombinację przedmiotów. Wartość plecaka wynosi: "+str(knapsack.get_value()))
                 bestKnapsack = copy.deepcopy(knapsack)
 
             if self._iterations % 30 == 0: #co iles zacznij od nowa
-                for x in range(0, self._itemlist_size -1 ):
+                for x in range(self._itemlist_size):
                     self._itemlist[x][1] = False
                 random.shuffle(self._itemlist)
-                knapsack = Knapsack(100, [])
+
+                knapsack = Knapsack(self._capacity, [])
 
                 for x in self._itemlist:  ##INIT PROBLEM
-                    if knapsack.get_value() > knapsack.get_capacity():
+                    if knapsack.get_value() + x[0].get_price() > knapsack.get_capacity():
                         break
                     knapsack.add_to_itemlist(x[0])
                     x[1] = True
