@@ -1,6 +1,8 @@
+import random
+
 from Knapsack import *
 from Item import *
-import random
+import randominstance
 import copy
 from RandomNumberGenerator import *
 class RS:
@@ -24,7 +26,7 @@ class RS:
     def find_best_neighbour(self, knapsack):
         sack = copy.deepcopy(knapsack)
         testsack = copy.deepcopy(knapsack)
-        final_list = []
+        final_list = copy.deepcopy(self._itemlist)
         test_list = copy.deepcopy(self._itemlist)
         for x in test_list:
             if x[1] == False:
@@ -40,15 +42,16 @@ class RS:
                     if sack.get_value() + i[0].get_price() > self._capacity:
                         continue
                     else:
-                        sack.add_to_itemlist
+                        sack.add_to_itemlist(i[1])
                         i[1] = True
                         if testsack.get_value() < sack.get_value(): #JEŚLI LEPSZA WARTOŚC TO ZAPISZ
+                            print("LEPSZA WARTOSC")
                             testsack = copy.deepcopy(sack)
                             final_list = copy.deepcopy(test_list)
             sack = copy.deepcopy(knapsack)      # POWROC DO BADANEGO PRZYPADKU I ZBADAJ KOLEJNEGO SĄSIADA
             test_list = copy.deepcopy(self._itemlist)
 
-        self._itemlist = final_list
+        self._itemlist = copy.deepcopy(final_list)
         return testsack
 
 
@@ -71,6 +74,7 @@ class RS:
 
             knapsack = self.find_best_neighbour(knapsack) # it makes the list clean for some reason
             if knapsack.get_value() > bestKnapsack.get_value():
+                print("lol")
                 bestKnapsack = copy.deepcopy(knapsack)
 
             if self._iterations % 30 == 0: #co iles zacznij od nowa
