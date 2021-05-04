@@ -1,5 +1,7 @@
-from  RS import *
+from RS import *
 from Knapsack import *
+
+
 def main():
     x = RS(10000)
     knapsack = x.solve()

@@ -5,6 +5,8 @@ from Item import *
 import randominstance
 import copy
 from RandomNumberGenerator import *
+
+
 class RS:
 
     _capacity = 100
@@ -12,6 +14,7 @@ class RS:
     _itemlist = []
     _solution = []
     _itemlist_size = 20
+    
     def __init__(self, iterations):
         self._iterations = iterations
 

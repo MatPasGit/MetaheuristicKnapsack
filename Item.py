@@ -6,9 +6,9 @@ class Item:
     _id = 0
 
     def __init__(self, id, weight, price):
+        self._id = id
         self._weight = weight
         self._price = price
-        self._id = id
 
     def get_weight(self):
         return self._weight
