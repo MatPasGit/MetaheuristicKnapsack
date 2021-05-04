@@ -5,7 +5,7 @@ def main():
     iterations = 1000
     item_list_size = 30
     seed = 20
-    init_method = 1
+    init_method = 3
     iterationlimit = 30
     neighbourmethod = 1
     temperature = 50

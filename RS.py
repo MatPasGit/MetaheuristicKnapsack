@@ -39,6 +39,8 @@ class RS:
         print(self._capacity)
 
     def init_solution(self):
+        print("Wybrano metode początkową: "+str(self.__init_method))
+
         knapsack = Knapsack(self._capacity, [])
 
         if self.__init_method==1:

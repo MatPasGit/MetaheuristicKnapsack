@@ -1,11 +1,22 @@
-from RS import RS, Knapsack
 import copy
 from numpy.random import choice
-class SA(RS):
+import random
+from Knapsack import *
+from Item import *
+from RandomNumberGenerator import *
+
+class SA():
 
     _temperature = 50
     _iterations = 1000
     _chill_period = 0
+    _capacity = 0
+    _itemlist = []
+    _itemlist_size = 0
+    _seed = 20
+    __init_method = 1
+    _iterationlimit = 30
+    _neighbourmethod = 1
 
     def __init__(self, iterations, size, seed, init_method, iterationlimit, neighbourmethod, temperature):
         self._iterations = iterations
@@ -15,6 +26,138 @@ class SA(RS):
         self._iterationlimit = iterationlimit
         self._neighbourmethod = neighbourmethod
         self._temperature = temperature
+
+    def init_itemlist(self):
+        x = RandomNumberGenerator(self._seed)
+
+        for i in range(0, self._itemlist_size):
+            self._itemlist.append(
+                [Item(i, x.nextInt(1, 30), x.nextInt(1, 30)), False])
+            print(str(self._itemlist[i][0].getId())+" " +
+                  str(self._itemlist[i][0].get_price())+" " +
+                  str(self._itemlist[i][0].get_weight()))
+        ## [Item, Boolean] bolean value determines whether item is in knapsack or no
+
+        self._capacity = x.nextInt(
+            5*self._itemlist_size, 10*self._itemlist_size)
+        print(self._capacity)
+
+    def init_solution(self):
+        print("Wybrano metode początkową: "+str(self.__init_method))
+
+        knapsack = Knapsack(self._capacity, [])
+
+        if self.__init_method == 1:
+            for x in self._itemlist:
+                if knapsack.get_weight() + x[0].get_weight() >= knapsack.get_capacity():
+                    break
+                knapsack.add_to_itemlist(x[0])
+                x[1] = True
+            return knapsack
+
+        if self.__init_method == 2:
+            bestKnapsack = 0
+            for i in range(10):
+                for x in self._itemlist:
+                    if knapsack.get_weight() + x[0].get_weight() >= knapsack.get_capacity():
+                        break
+                    knapsack.add_to_itemlist(x[0])
+                    x[1] = True
+                if i == 0:
+                    bestKnapsack = copy.deepcopy(knapsack)
+                    print("Znaleziono lepszy początek" +
+                          str(bestKnapsack.get_value()))
+                else:
+                    if bestKnapsack.get_value() < knapsack.get_value():
+                        bestKnapsack = copy.deepcopy(knapsack)
+                        print("Znaleziono lepszy początek" +
+                              str(bestKnapsack.get_value()))
+                knapsack = Knapsack(self._capacity, [])
+                random.shuffle(self._itemlist)
+            return bestKnapsack
+
+        if self.__init_method == 3:
+            bestKnapsack = 0
+            for i in range(100):
+                for x in self._itemlist:
+                    if knapsack.get_weight() + x[0].get_weight() >= knapsack.get_capacity():
+                        break
+                    knapsack.add_to_itemlist(x[0])
+                    x[1] = True
+                if i == 0:
+                    bestKnapsack = copy.deepcopy(knapsack)
+                    print("Znaleziono lepszy początek" +
+                          str(bestKnapsack.get_value()))
+                else:
+                    if bestKnapsack.get_value() < knapsack.get_value():
+                        bestKnapsack = copy.deepcopy(knapsack)
+                        print("Znaleziono lepszy początek" +
+                              str(bestKnapsack.get_value()))
+                knapsack = Knapsack(self._capacity, [])
+                random.shuffle(self._itemlist)
+            return bestKnapsack
+
+    def find_best_neighbour(self, knapsack):
+        sack = copy.deepcopy(knapsack)
+        testsack = copy.deepcopy(knapsack)
+        final_list = copy.deepcopy(self._itemlist)
+        test_list = copy.deepcopy(self._itemlist)
+
+        if self._neighbourmethod == 1:
+            for x in test_list:
+                if x[1] == False:
+                    continue  # JEŚLI POZA PLECAKIEM TO PRZEBADAJ NASTEPNY ELEMENT
+                else:
+                    # Jeśli w plecaku to usuń i znajdź najlepszego sąsiada
+                    x[1] = False
+                    sack.del_from_itemlist(x[0])
+
+                for i in test_list:
+                    if i == x:
+                        continue
+                    if i[1] == False:  # JESLI POZA PLECAKIEM TO PODMIEN
+                        if sack.get_weight() + i[0].get_weight() >= self._capacity:
+                            continue
+                        else:
+                            sack.add_to_itemlist(i[0])
+                            i[1] = True
+                            if sack.get_value() > testsack.get_value():  # JEŚLI LEPSZA WARTOŚĆ TO ZAPISZ
+                                #print("LEPSZA WARTOSC")
+                                testsack = copy.deepcopy(sack)
+                                final_list = copy.deepcopy(test_list)
+                            sack.del_from_itemlist(i[0])
+                            i[1] = False
+
+            self._itemlist = copy.deepcopy(final_list)
+            return testsack
+
+        if self._neighbourmethod == 2:
+            for x in test_list:
+                if x[1] == False:
+                    continue  # JEŚLI POZA PLECAKIEM TO PRZEBADAJ NASTEPNY ELEMENT
+                else:
+                    # Jeśli w plecaku to usuń i znajdź najlepszego sąsiada
+                    x[1] = False
+                    sack.del_from_itemlist(x[0])
+
+                for i in test_list:
+                    if i == x:
+                        continue
+                    if i[1] == False:  # JESLI POZA PLECAKIEM TO PODMIEN
+                        if sack.get_weight() + i[0].get_weight() >= self._capacity:
+                            continue
+                        else:
+                            sack.add_to_itemlist(i[0])
+                            i[1] = True
+                            if sack.get_value() > testsack.get_value():  # JEŚLI LEPSZA WARTOŚĆ TO ZAPISZ
+                                #print("LEPSZA WARTOSC")
+                                testsack = copy.deepcopy(sack)
+                                final_list = copy.deepcopy(test_list)
+                            sack.del_from_itemlist(i[0])
+                test_list = copy.deepcopy(self._itemlist)
+
+            self._itemlist = copy.deepcopy(final_list)
+            return testsack
 
     def iterations_to_chill(self):
         chill = self._iterations/self._temperature
@@ -66,7 +209,7 @@ class SA(RS):
 
             chance = self._temperature / 100
             better_worst = choice([True, False], 1, [1-chance, chance])
-            print(better_worst)
+            #print(better_worst)
             if better_worst == True:
                 knapsack = self.find_best_neighbour(knapsack)
             else:
