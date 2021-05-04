@@ -31,7 +31,7 @@ class Knapsack:
                     self._itemlist.pop(index)
                     self.knapsackValue()
                     self.knapsackWeight()
-                    return
+                    
 
 
     def get_itemlist(self):

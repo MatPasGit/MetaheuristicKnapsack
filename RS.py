@@ -104,14 +104,14 @@ class RS:
                     if sack.get_weight() + i[0].get_weight() >= self._capacity:
                         continue
                     else:
-                        sack.add_to_itemlist(i[1])
-                        i[1] = True
-                        if testsack.get_value() < sack.get_value(): #JEŚLI LEPSZA WARTOŚC TO ZAPISZ
-                            print("LEPSZA WARTOSC")
+                        sack.add_to_itemlist(i[0])
+                        i[1]=True
+                        if sack.get_value() > testsack.get_value():  # JEŚLI LEPSZA WARTOŚĆ TO ZAPISZ
+                            #print("LEPSZA WARTOSC")
                             testsack = copy.deepcopy(sack)
                             final_list = copy.deepcopy(test_list)
-            sack = copy.deepcopy(knapsack)      # POWROC DO BADANEGO PRZYPADKU I ZBADAJ KOLEJNEGO SĄSIADA
-            test_list = copy.deepcopy(self._itemlist)
+                        sack.del_from_itemlist(i[0])
+                        i[1]=False
 
         self._itemlist = copy.deepcopy(final_list)
         return testsack
@@ -122,16 +122,17 @@ class RS:
 
         bestKnapsack = copy.deepcopy(self.init_solution())
         knapsack = Knapsack(self._capacity, [])
-        
+
         while self._iterations > 0 :
             self._iterations -= 1
 
             knapsack = self.find_best_neighbour(knapsack) # it makes the list clean for some reason
+
             if knapsack.get_value() > bestKnapsack.get_value():
                 print("Znaleziono lepszą kombinację przedmiotów. Wartość plecaka wynosi: "+str(knapsack.get_value()))
                 bestKnapsack = copy.deepcopy(knapsack)
 
-            if self._iterations % 30 == 0: #co iles zacznij od nowa
+            if self._iterations % 30 == 0:                  #co iles zacznij od nowa
                 for x in range(self._itemlist_size):
                     self._itemlist[x][1] = False
                 random.shuffle(self._itemlist)
