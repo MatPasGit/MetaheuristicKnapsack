@@ -15,13 +15,15 @@ class RS:
     _seed = 20
     __init_method = 1
     _iterationlimit = 30
+    _neighbourmethod = 1
 
-    def __init__(self, iterations, size, seed, init_method, iterationlimit):
+    def __init__(self, iterations, size, seed, init_method, iterationlimit, neighbourmethod):
         self._iterations = iterations
         self._itemlist_size = size
         self._seed = seed
         self.__init_method = init_method
         self._iterationlimit = iterationlimit
+        self._neighbourmethod = neighbourmethod
 
     def init_itemlist(self):
         x = RandomNumberGenerator(self._seed)
@@ -92,32 +94,59 @@ class RS:
         final_list = copy.deepcopy(self._itemlist)
         test_list = copy.deepcopy(self._itemlist)
         
-        for x in test_list:
-            if x[1] == False:
-                continue    ## JEŚLI POZA PLECAKIEM TO PRZEBADAJ NASTEPNY ELEMENT
-            else:
-                x[1] = False        ##Jeśli w plecaku to usuń i znajdź najlepszego sąsiada
-                sack.del_from_itemlist(x[0])
+        if self._neighbourmethod == 1:
+            for x in test_list:
+                if x[1] == False:
+                    continue    ## JEŚLI POZA PLECAKIEM TO PRZEBADAJ NASTEPNY ELEMENT
+                else:
+                    x[1] = False        ##Jeśli w plecaku to usuń i znajdź najlepszego sąsiada
+                    sack.del_from_itemlist(x[0])
 
-            for i in test_list:
-                if i == x:
-                    continue
-                if i[1] == False:       #JESLI POZA PLECAKIEM TO PODMIEN
-                    if sack.get_weight() + i[0].get_weight() >= self._capacity:
+                for i in test_list:
+                    if i == x:
                         continue
-                    else:
-                        sack.add_to_itemlist(i[0])
-                        i[1]=True
-                        if sack.get_value() > testsack.get_value():  # JEŚLI LEPSZA WARTOŚĆ TO ZAPISZ
-                            #print("LEPSZA WARTOSC")
-                            testsack = copy.deepcopy(sack)
-                            final_list = copy.deepcopy(test_list)
-                        sack.del_from_itemlist(i[0])
-                        i[1]=False
+                    if i[1] == False:       #JESLI POZA PLECAKIEM TO PODMIEN
+                        if sack.get_weight() + i[0].get_weight() >= self._capacity:
+                            continue
+                        else:
+                            sack.add_to_itemlist(i[0])
+                            i[1]=True
+                            if sack.get_value() > testsack.get_value():  # JEŚLI LEPSZA WARTOŚĆ TO ZAPISZ
+                                #print("LEPSZA WARTOSC")
+                                testsack = copy.deepcopy(sack)
+                                final_list = copy.deepcopy(test_list)
+                            sack.del_from_itemlist(i[0])
+                            i[1]=False
 
-        self._itemlist = copy.deepcopy(final_list)
-        return testsack
+            self._itemlist = copy.deepcopy(final_list)
+            return testsack
 
+        if self._neighbourmethod == 2:
+            for x in test_list:
+                if x[1] == False:
+                    continue    ## JEŚLI POZA PLECAKIEM TO PRZEBADAJ NASTEPNY ELEMENT
+                else:
+                    x[1] = False        ##Jeśli w plecaku to usuń i znajdź najlepszego sąsiada
+                    sack.del_from_itemlist(x[0])
+
+                for i in test_list:
+                    if i == x:
+                        continue
+                    if i[1] == False:       #JESLI POZA PLECAKIEM TO PODMIEN
+                        if sack.get_weight() + i[0].get_weight() >= self._capacity:
+                            continue
+                        else:
+                            sack.add_to_itemlist(i[0])
+                            i[1]=True
+                            if sack.get_value() > testsack.get_value():  # JEŚLI LEPSZA WARTOŚĆ TO ZAPISZ
+                                #print("LEPSZA WARTOSC")
+                                testsack = copy.deepcopy(sack)
+                                final_list = copy.deepcopy(test_list)
+                            sack.del_from_itemlist(i[0])
+                test_list = copy.deepcopy(self._itemlist)
+            
+            self._itemlist = copy.deepcopy(final_list)
+            return testsack
 
     def solve(self):
         self.init_itemlist()

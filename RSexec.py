@@ -9,8 +9,9 @@ def main():
     seed = 20
     init_method = 1
     iterationlimit = 30
+    neighbourmethod = 1
 
-    x = RS(iterations, item_list_size, seed, init_method, iterationlimit)
+    x = RS(iterations, item_list_size, seed, init_method, iterationlimit, neighbourmethod)
     knapsack = x.solve()
     
     print("\nOstateczna wartość: "+str(knapsack.get_value()))
