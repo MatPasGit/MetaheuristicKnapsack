@@ -13,11 +13,13 @@ class RS:
     _itemlist = []
     _itemlist_size = 0
     _seed = 20
-    
-    def __init__(self, iterations, size, seed):
+    __init_method = 1
+
+    def __init__(self, iterations, size, seed, init_method):
         self._iterations = iterations
         self._itemlist_size = size
         self._seed = seed
+        self.__init_method = init_method
 
     def init_itemlist(self):
         x = RandomNumberGenerator(self._seed)
@@ -32,6 +34,51 @@ class RS:
         self._capacity = x.nextInt(5*self._itemlist_size,10*self._itemlist_size)
         print(self._capacity)
 
+    def init_solution(self, knapsack):
+        if self.__init_method==1:
+            for x in self._itemlist:
+                if knapsack.get_weight() + x[0].get_weight() >= knapsack.get_capacity():
+                    break
+                knapsack.add_to_itemlist(x[0])
+                x[1] = True
+            return knapsack
+        
+        if self.__init_method == 2:
+            bestKnapsack = 0
+            for i in range(10):
+                for x in self._itemlist:
+                    if knapsack.get_weight() + x[0].get_weight() >= knapsack.get_capacity():
+                        break
+                    knapsack.add_to_itemlist(x[0])
+                    x[1] = True
+                if i==0:
+                    bestKnapsack = copy.deepcopy(knapsack)
+                    print("Znaleziono lepszy początek"+str(bestKnapsack.get_value()))
+                else:
+                    if bestKnapsack.get_value() < knapsack.get_value() :
+                        bestKnapsack = copy.deepcopy(knapsack)
+                        print("Znaleziono lepszy początek"+str(bestKnapsack.get_value()))
+                random.shuffle(self._itemlist)
+            return bestKnapsack
+
+        if self.__init_method == 3:
+            bestKnapsack = 0
+            for i in range(100):
+                for x in self._itemlist:
+                    if knapsack.get_weight() + x[0].get_weight() >= knapsack.get_capacity():
+                        break
+                    knapsack.add_to_itemlist(x[0])
+                    x[1] = True
+                if i == 0:
+                    bestKnapsack = copy.deepcopy(knapsack)
+                    print("Znaleziono lepszy początek"+str(bestKnapsack.get_value()))
+                else:
+                    if bestKnapsack.get_value() < knapsack.get_value():
+                        bestKnapsack = copy.deepcopy(knapsack)
+                        print("Znaleziono lepszy początek" +
+                              str(bestKnapsack.get_value()))
+                random.shuffle(self._itemlist)
+            return bestKnapsack
 
     def find_best_neighbour(self, knapsack):
         sack = copy.deepcopy(knapsack)
@@ -71,16 +118,7 @@ class RS:
 
         knapsack = Knapsack(self._capacity, [])
 
-        ##INIT PROBLEM
-
-        for x in self._itemlist:            
-            if knapsack.get_weight() +  x[0].get_weight() >= knapsack.get_capacity() :
-                break
-            knapsack.add_to_itemlist( x[0] )
-            x[1] = True
-
-        bestKnapsack = copy.deepcopy(knapsack)
-
+        bestKnapsack = copy.deepcopy(self.init_solution(knapsack))
 
         while self._iterations > 0 :
             self._iterations -= 1
