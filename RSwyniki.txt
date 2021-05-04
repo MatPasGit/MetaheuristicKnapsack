@@ -1,0 +1,65 @@
+PS C:\Users\HP\Desktop\ZTO5\MetaheuristicKnapsack> py c:\Users\HP\Desktop\ZTO5\MetaheuristicKnapsack\RSexec.py
+Liczba itemów3Liczba iteracji200Metoda poczatkowa1Metoda sasiedztwa1
+
+Ostateczna wartość: 37, czas=0.07410526275634766
+Liczba itemów3Liczba iteracji200Metoda poczatkowa1Metoda sasiedztwa2
+
+Ostateczna wartość: 56, czas=0.3330960273742676
+Liczba itemów3Liczba iteracji200Metoda poczatkowa2Metoda sasiedztwa1
+
+Ostateczna wartość: 75, czas=0.18040704727172852
+Liczba itemów3Liczba iteracji200Metoda poczatkowa2Metoda sasiedztwa2
+
+Ostateczna wartość: 75, czas=0.9005792140960693
+Liczba itemów3Liczba iteracji300Metoda poczatkowa1Metoda sasiedztwa1
+
+Ostateczna wartość: 100, czas=0.5700533390045166
+Liczba itemów3Liczba iteracji300Metoda poczatkowa1Metoda sasiedztwa2
+
+Ostateczna wartość: 138, czas=2.596958637237549
+Liczba itemów3Liczba iteracji300Metoda poczatkowa2Metoda sasiedztwa1
+
+Ostateczna wartość: 113, czas=0.9694151878356934
+Liczba itemów3Liczba iteracji300Metoda poczatkowa2Metoda sasiedztwa2
+
+Ostateczna wartość: 87, czas=4.658318042755127
+Liczba itemów3Liczba iteracji400Metoda poczatkowa1Metoda sasiedztwa1
+
+Ostateczna wartość: 95, czas=1.50469970703125
+Liczba itemów3Liczba iteracji400Metoda poczatkowa1Metoda sasiedztwa2
+
+Ostateczna wartość: 95, czas=9.327784061431885
+Liczba itemów3Liczba iteracji400Metoda poczatkowa2Metoda sasiedztwa1
+
+Ostateczna wartość: 94, czas=2.2098851203918457
+Liczba itemów3Liczba iteracji400Metoda poczatkowa2Metoda sasiedztwa2
+
+Ostateczna wartość: 107, czas=13.717350482940674
+Liczba itemów8Liczba iteracji200Metoda poczatkowa1Metoda sasiedztwa1
+
+Ostateczna wartość: 137, czas=1.5370502471923828
+Liczba itemów8Liczba iteracji200Metoda poczatkowa1Metoda sasiedztwa2
+
+Ostateczna wartość: 175, czas=13.309074401855469
+Liczba itemów8Liczba iteracji200Metoda poczatkowa2Metoda sasiedztwa1
+
+Ostateczna wartość: 120, czas=2.5556318759918213
+Liczba itemów8Liczba iteracji200Metoda poczatkowa2Metoda sasiedztwa2
+
+Ostateczna wartość: 175, czas=22.119410753250122
+Liczba itemów8Liczba iteracji300Metoda poczatkowa1Metoda sasiedztwa1
+
+Ostateczna wartość: 147, czas=5.502679824829102
+Liczba itemów8Liczba iteracji300Metoda poczatkowa1Metoda sasiedztwa2
+
+Ostateczna wartość: 146, czas=51.639960527420044
+Liczba itemów8Liczba iteracji300Metoda poczatkowa2Metoda sasiedztwa1
+
+Ostateczna wartość: 100, czas=8.182175159454346
+Liczba itemów8Liczba iteracji300Metoda poczatkowa2Metoda sasiedztwa2
+
+Ostateczna wartość: 181, czas=71.34414219856262
+Liczba itemów8Liczba iteracji400Metoda poczatkowa1Metoda sasiedztwa1
+
+Ostateczna wartość: 135, czas=13.640458345413208
+Liczba itemów8Liczba iteracji400Metoda poczatkowa1Metoda sasiedztwa2
