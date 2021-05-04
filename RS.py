@@ -14,12 +14,14 @@ class RS:
     _itemlist_size = 0
     _seed = 20
     __init_method = 1
+    _iterationlimit = 30
 
-    def __init__(self, iterations, size, seed, init_method):
+    def __init__(self, iterations, size, seed, init_method, iterationlimit):
         self._iterations = iterations
         self._itemlist_size = size
         self._seed = seed
         self.__init_method = init_method
+        self._iterationlimit = iterationlimit
 
     def init_itemlist(self):
         x = RandomNumberGenerator(self._seed)
@@ -132,7 +134,7 @@ class RS:
                 print("Znaleziono lepszą kombinację przedmiotów. Wartość plecaka wynosi: "+str(knapsack.get_value()))
                 bestKnapsack = copy.deepcopy(knapsack)
 
-            if self._iterations % 30 == 0:                  #co iles zacznij od nowa
+            if self._iterations % self._iterationlimit == 0:                  #co iles zacznij od nowa
                 for x in range(self._itemlist_size):
                     self._itemlist[x][1] = False
                 random.shuffle(self._itemlist)
